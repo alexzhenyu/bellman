@@ -738,7 +738,7 @@ mod test {
     use crate::gadgets::test::*;
     use crate::ConstraintSystem;
     use ff::{Field, PrimeField};
-    use paired::bls12_381::{Bls12, Fr};
+    use blstrs::{Bls12, Scalar as Fr};
 
     #[test]
     fn test_allocated_bit() {

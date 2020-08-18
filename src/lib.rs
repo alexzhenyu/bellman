@@ -22,7 +22,7 @@
 //!     },
 //!     groth16, Circuit, ConstraintSystem, SynthesisError,
 //! };
-//! use paired::{bls12_381::Bls12, Engine};
+//! use blstrs::{Bls12, Engine};
 //! use rand::rngs::OsRng;
 //! use sha2::{Digest, Sha256};
 //!
@@ -576,7 +576,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_add_simplify() {
-        use paired::bls12_381::Bls12;
+        use blstrs::Bls12;
 
         let n = 5;
 

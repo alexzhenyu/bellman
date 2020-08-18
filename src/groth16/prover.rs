@@ -3,7 +3,7 @@ use std::sync::Arc;
 use ff::{Field, PrimeField};
 use futures::Future;
 use groupy::{CurveAffine, CurveProjective};
-use paired::Engine;
+use blstrs::Engine;
 use rand_core::RngCore;
 use rayon::prelude::*;
 
@@ -569,7 +569,7 @@ where
 mod tests {
     use super::*;
 
-    use paired::bls12_381::{Bls12, Fr};
+    use blstrs::{Bls12, Scalar as Fr};
     use rand::Rng;
     use rand_core::SeedableRng;
     use rand_xorshift::XorShiftRng;

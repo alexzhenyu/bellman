@@ -4,7 +4,7 @@ use crate::gpu::{
 };
 use ff::Field;
 use log::info;
-use paired::Engine;
+use blstrs::Engine;
 use rust_gpu_tools::*;
 use std::cmp;
 

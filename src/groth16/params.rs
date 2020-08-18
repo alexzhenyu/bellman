@@ -1,5 +1,5 @@
 use groupy::{CurveAffine, EncodedPoint};
-use paired::Engine;
+use blstrs::Engine;
 
 use crate::multiexp::SourceBuilder;
 use crate::SynthesisError;

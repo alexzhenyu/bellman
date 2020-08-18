@@ -1,5 +1,5 @@
 use ff::{Field, PrimeField};
-use paired::Engine;
+use blstrs::Engine;
 
 mod dummy_engine;
 use self::dummy_engine::*;

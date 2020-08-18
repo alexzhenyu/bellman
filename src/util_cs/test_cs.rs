@@ -6,7 +6,7 @@ use crate::{ConstraintSystem, Index, LinearCombination, SynthesisError, Variable
 use blake2s_simd::State as Blake2s;
 use byteorder::{BigEndian, ByteOrder};
 use ff::{Field, PrimeField, PrimeFieldRepr};
-use paired::Engine;
+use blstrs::Engine;
 
 #[derive(Debug)]
 enum NamedObject {
@@ -420,7 +420,7 @@ mod tests {
     #[test]
     fn test_cs() {
         use ff::PrimeField;
-        use paired::bls12_381::{Bls12, Fr};
+        use blstrs::{Bls12, Scalar as Fr};
 
         let mut cs = TestConstraintSystem::<Bls12>::new();
         assert!(cs.is_satisfied());

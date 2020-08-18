@@ -390,7 +390,7 @@ mod test {
     use crate::gadgets::test::*;
     use crate::ConstraintSystem;
     use ff::Field;
-    use paired::bls12_381::Bls12;
+    use blstrs::Bls12;
     use rand_core::{RngCore, SeedableRng};
     use rand_xorshift::XorShiftRng;
 

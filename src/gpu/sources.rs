@@ -1,5 +1,5 @@
 use ff_cl_gen as ffgen;
-use paired::Engine;
+use blstrs::Engine;
 
 // Instead of having a very large OpenCL program written for a specific curve, with a lot of
 // rudandant codes (As OpenCL doesn't have generic types or templates), this module will dynamically

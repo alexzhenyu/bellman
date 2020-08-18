@@ -1,7 +1,7 @@
 use super::{create_proof_batch_priority, create_random_proof_batch_priority};
 use super::{ParameterSource, Proof};
 use crate::{Circuit, SynthesisError};
-use paired::Engine;
+use blstrs::Engine;
 use rand_core::RngCore;
 
 pub fn create_proof<E, C, P: ParameterSource<E>>(

@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use ff::{Field, PrimeField};
 use groupy::{CurveAffine, CurveProjective, Wnaf};
-use paired::Engine;
+use blstrs::Engine;
 
 use super::{Parameters, VerifyingKey};
 

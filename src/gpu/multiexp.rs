@@ -9,7 +9,7 @@ use ff::{PrimeField, ScalarEngine};
 use futures::Future;
 use groupy::{CurveAffine, CurveProjective};
 use log::{error, info};
-use paired::Engine;
+use blstrs::Engine;
 use rust_gpu_tools::*;
 use std::any::TypeId;
 use std::sync::Arc;
@@ -270,7 +270,7 @@ where
     ) -> GPUResult<<G as CurveAffine>::Projective>
     where
         G: CurveAffine,
-        <G as groupy::CurveAffine>::Engine: paired::Engine,
+        <G as groupy::CurveAffine>::Engine: blstrs::Engine,
     {
         let num_devices = self.kernels.len();
         // Bases are skipped by `self.1` elements, when converted from (Arc<Vec<G>>, usize) to Source

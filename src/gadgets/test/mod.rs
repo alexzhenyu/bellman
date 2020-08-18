@@ -420,7 +420,7 @@ impl<E: ScalarEngine> ConstraintSystem<E> for TestConstraintSystem<E> {
 #[test]
 fn test_cs() {
     use ff::PrimeField;
-    use paired::bls12_381::{Bls12, Fr};
+    use blstrs::{Bls12, Scalar as Fr};
 
     let mut cs = TestConstraintSystem::<Bls12>::new();
     assert!(cs.is_satisfied());

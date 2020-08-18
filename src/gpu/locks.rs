@@ -70,7 +70,7 @@ use super::fft::FFTKernel;
 use super::multiexp::MultiexpKernel;
 use crate::domain::create_fft_kernel;
 use crate::multiexp::create_multiexp_kernel;
-use paired::Engine;
+use blstrs::Engine;
 
 macro_rules! locked_kernel {
     ($class:ident, $kern:ident, $func:ident, $name:expr) => {

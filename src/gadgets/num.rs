@@ -441,7 +441,7 @@ impl<E: ScalarEngine> Num<E> {
 mod test {
     use crate::ConstraintSystem;
     use ff::{BitIterator, Field, PrimeField};
-    use paired::bls12_381::{Bls12, Fr};
+    use blstrs::{Bls12, Scalar as Fr};
     use rand_core::SeedableRng;
     use rand_xorshift::XorShiftRng;
 

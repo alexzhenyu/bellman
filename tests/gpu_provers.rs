@@ -1,11 +1,6 @@
-extern crate bellperson;
-extern crate ff;
-extern crate log;
-extern crate paired;
-extern crate rand;
 use bellperson::{Circuit, ConstraintSystem, SynthesisError};
 use ff::{Field, PrimeField};
-use paired::Engine;
+use blstrs::Engine;
 
 #[derive(Clone)]
 pub struct DummyDemo {
@@ -50,7 +45,7 @@ pub fn test_parallel_prover() {
         create_random_proof, create_random_proof_in_priority, generate_random_parameters,
         prepare_verifying_key, verify_proof,
     };
-    use paired::bls12_381::Bls12;
+    use blstrs::Bls12;
     use rand::thread_rng;
     use std::thread;
     use std::time::{Duration, Instant};

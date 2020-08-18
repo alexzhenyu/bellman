@@ -6,10 +6,10 @@ use std::time::{Duration, Instant};
 
 // Bring in some tools for using pairing-friendly curves
 use ff::{Field, ScalarEngine};
-use paired::Engine;
+use blstrs::Engine;
 
 // We're going to use the BLS12-381 pairing-friendly elliptic curve.
-use paired::bls12_381::Bls12;
+use blstrs::Bls12;
 
 // We'll use these interfaces to construct our circuit.
 use bellperson::{Circuit, ConstraintSystem, SynthesisError};

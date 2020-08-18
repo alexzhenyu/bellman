@@ -1,5 +1,5 @@
 use groupy::{CurveAffine, EncodedPoint};
-use paired::{Engine, PairingCurveAffine};
+use blstrs::{Engine, PairingCurveAffine};
 
 use byteorder::{BigEndian, ReadBytesExt, WriteBytesExt};
 use memmap::Mmap;
@@ -137,7 +137,7 @@ impl<E: Engine> VerifyingKey<E> {
 
         let read_g1 = |mmap: &Mmap,
                        offset: &mut usize|
-         -> Result<<E as paired::Engine>::G1Affine, std::io::Error> {
+         -> Result<<E as blstrs::Engine>::G1Affine, std::io::Error> {
             let ptr = &mmap[*offset..*offset + g1_len];
             // Safety: this operation is safe, because it's simply
             // casting to a known struct at the correct offset, given
@@ -154,7 +154,7 @@ impl<E: Engine> VerifyingKey<E> {
 
         let read_g2 = |mmap: &Mmap,
                        offset: &mut usize|
-         -> Result<<E as paired::Engine>::G2Affine, std::io::Error> {
+         -> Result<<E as blstrs::Engine>::G2Affine, std::io::Error> {
             let ptr = &mmap[*offset..*offset + g2_len];
             // Safety: this operation is safe, because it's simply
             // casting to a known struct at the correct offset, given

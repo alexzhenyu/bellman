@@ -3,7 +3,7 @@
 //! [Groth16]: https://eprint.iacr.org/2016/260
 
 use groupy::{CurveAffine, EncodedPoint};
-use paired::Engine;
+use blstrs::Engine;
 
 use std::io::{self, Read, Write};
 
@@ -107,7 +107,7 @@ mod test_with_bls12_381 {
     use crate::{Circuit, ConstraintSystem, SynthesisError};
 
     use ff::Field;
-    use paired::bls12_381::{Bls12, Fr};
+    use blstrs::{Bls12, Scalar as Fr};
     use rand::thread_rng;
 
     #[test]

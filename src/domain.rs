@@ -13,7 +13,7 @@
 
 use ff::{Field, PrimeField, ScalarEngine};
 use groupy::CurveProjective;
-use paired::Engine;
+use blstrs::Engine;
 
 use super::multicore::Worker;
 use super::SynthesisError;
@@ -438,7 +438,7 @@ fn parallel_fft<E: ScalarEngine, T: Group<E>>(
 #[cfg(feature = "pairing")]
 #[test]
 fn polynomial_arith() {
-    use paired::bls12_381::Bls12;
+    use blstrs::Bls12;
     use rand_core::RngCore;
 
     fn test_mul<E: ScalarEngine, R: RngCore>(rng: &mut R) {
@@ -489,7 +489,7 @@ fn polynomial_arith() {
 #[cfg(feature = "pairing")]
 #[test]
 fn fft_composition() {
-    use paired::bls12_381::Bls12;
+    use blstrs::Bls12;
     use rand_core::RngCore;
 
     fn test_comp<E: ScalarEngine, R: RngCore>(rng: &mut R) {
@@ -527,7 +527,7 @@ fn fft_composition() {
 #[cfg(feature = "pairing")]
 #[test]
 fn parallel_fft_consistency() {
-    use paired::bls12_381::Bls12;
+    use blstrs::Bls12;
     use rand_core::RngCore;
     use std::cmp::min;
 
@@ -588,7 +588,7 @@ mod tests {
         let _ = env_logger::try_init();
         gpu::dump_device_list();
 
-        use paired::bls12_381::{Bls12, Fr};
+        use blstrs::{Bls12, Fr};
         use std::time::Instant;
         let rng = &mut rand::thread_rng();
 

@@ -3,7 +3,7 @@ use ff::{
     SqrtField,
 };
 use groupy::{CurveAffine, CurveProjective, EncodedPoint, GroupDecodingError};
-use paired::{Engine, PairingCurveAffine};
+use blstrs::{Engine, PairingCurveAffine};
 
 use rand_core::RngCore;
 use std::cmp::Ordering;
