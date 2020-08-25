@@ -4,12 +4,12 @@ use super::sources;
 use super::utils;
 use crate::multicore::Worker;
 use crate::multiexp::{multiexp as cpu_multiexp, FullDensity};
+use blstrs::Engine;
 use crossbeam::thread;
 use ff::{PrimeField, ScalarEngine};
 use futures::Future;
 use groupy::{CurveAffine, CurveProjective};
 use log::{error, info};
-use blstrs::Engine;
 use rust_gpu_tools::*;
 use std::any::TypeId;
 use std::sync::Arc;
@@ -87,11 +87,15 @@ where
     E: Engine,
 {
     let aff_size = std::mem::size_of::<E::G1Affine>() + std::mem::size_of::<E::G2Affine>();
-    let exp_size = std::mem::size_of::<E::Fr>();
+    let exp_size = exp_size::<E>();
     let proj_size = std::mem::size_of::<E::G1>() + std::mem::size_of::<E::G2>();
     ((((mem as f64) * (1f64 - MEMORY_PADDING)) as usize)
         - (2 * core_count * ((1 << MAX_WINDOW_SIZE) + 1) * proj_size))
         / (aff_size + exp_size)
+}
+
+fn exp_size<E: Engine>() -> usize {
+    std::mem::size_of::<<E::Fr as ff::PrimeField>::Repr>()
 }
 
 impl<E> SingleMultiexpKernel<E>
@@ -101,7 +105,7 @@ where
     pub fn create(d: opencl::Device, priority: bool) -> GPUResult<SingleMultiexpKernel<E>> {
         let src = sources::kernel::<E>(d.brand() == opencl::Brand::Nvidia);
 
-        let exp_bits = std::mem::size_of::<E::Fr>() * 8;
+        let exp_bits = exp_size::<E>() * 8;
         let core_count = utils::get_core_count(&d);
         let mem = d.memory();
         let max_n = calc_chunk_size::<E>(mem, core_count);
@@ -130,7 +134,7 @@ where
             return Err(GPUError::GPUTaken);
         }
 
-        let exp_bits = std::mem::size_of::<E::Fr>() * 8;
+        let exp_bits = exp_size::<E>() * 8;
         let window_size = calc_window_size(n as usize, exp_bits, self.core_count);
         let num_windows = ((exp_bits as f64) / (window_size as f64)).ceil() as usize;
         let num_groups = calc_num_groups(self.core_count, num_windows);
