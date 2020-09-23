@@ -132,9 +132,6 @@
 //! using the [`ff`] and [`group`] crates, while specific proving systems will
 //! be separate crates that pull in the dependencies they require.
 
-// Catch documentation errors caused by code changes.
-#![deny(broken_intra_doc_links)]
-
 #[cfg(test)]
 #[macro_use]
 extern crate hex_literal;
