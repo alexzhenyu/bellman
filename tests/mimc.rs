@@ -5,11 +5,11 @@ use rand::thread_rng;
 use std::time::{Duration, Instant};
 
 // Bring in some tools for using pairing-friendly curves
+use bellperson::bls::Engine;
 use ff::{Field, ScalarEngine};
-use blstrs::Engine;
 
 // We're going to use the BLS12-381 pairing-friendly elliptic curve.
-use blstrs::Bls12;
+use bellperson::bls::Bls12;
 
 // We'll use these interfaces to construct our circuit.
 use bellperson::{Circuit, ConstraintSystem, SynthesisError};

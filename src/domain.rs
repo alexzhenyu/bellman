@@ -11,7 +11,7 @@
 //! [`EvaluationDomain`]: crate::domain::EvaluationDomain
 //! [Groth16]: https://eprint.iacr.org/2016/260
 
-use blstrs::Engine;
+use crate::bls::Engine;
 use ff::{Field, PrimeField, ScalarEngine};
 use groupy::CurveProjective;
 
@@ -435,13 +435,13 @@ fn parallel_fft<E: ScalarEngine, T: Group<E>>(
 
 // Test multiplying various (low degree) polynomials together and
 // comparing with naive evaluations.
-#[cfg(feature = "pairing")]
+#[cfg(any(feature = "pairing", features = "blst"))]
 #[test]
 fn polynomial_arith() {
-    use blstrs::Bls12;
+    use crate::bls::{Bls12, Engine};
     use rand_core::RngCore;
 
-    fn test_mul<E: ScalarEngine, R: RngCore>(rng: &mut R) {
+    fn test_mul<E: ScalarEngine + Engine, R: RngCore>(rng: &mut R) {
         let worker = Worker::new();
 
         for coeffs_a in 0..70 {
@@ -469,10 +469,10 @@ fn polynomial_arith() {
                 let mut a = EvaluationDomain::from_coeffs(a).unwrap();
                 let mut b = EvaluationDomain::from_coeffs(b).unwrap();
 
-                a.fft(&worker, &mut None);
-                b.fft(&worker, &mut None);
+                a.fft(&worker, &mut None).unwrap();
+                b.fft(&worker, &mut None).unwrap();
                 a.mul_assign(&worker, &b);
-                a.ifft(&worker, &mut None);
+                a.ifft(&worker, &mut None).unwrap();
 
                 for (naive, fft) in naive.iter().zip(a.coeffs.iter()) {
                     assert!(naive == fft);
@@ -486,13 +486,13 @@ fn polynomial_arith() {
     test_mul::<Bls12, _>(rng);
 }
 
-#[cfg(feature = "pairing")]
+#[cfg(any(feature = "pairing", feature = "blst"))]
 #[test]
 fn fft_composition() {
-    use blstrs::Bls12;
+    use crate::bls::{Bls12, Engine};
     use rand_core::RngCore;
 
-    fn test_comp<E: ScalarEngine, R: RngCore>(rng: &mut R) {
+    fn test_comp<E: ScalarEngine + Engine, R: RngCore>(rng: &mut R) {
         let worker = Worker::new();
 
         for coeffs in 0..10 {
@@ -504,17 +504,17 @@ fn fft_composition() {
             }
 
             let mut domain = EvaluationDomain::from_coeffs(v.clone()).unwrap();
-            domain.ifft(&worker, &mut None);
-            domain.fft(&worker, &mut None);
+            domain.ifft(&worker, &mut None).unwrap();
+            domain.fft(&worker, &mut None).unwrap();
             assert!(v == domain.coeffs);
-            domain.fft(&worker, &mut None);
-            domain.ifft(&worker, &mut None);
+            domain.fft(&worker, &mut None).unwrap();
+            domain.ifft(&worker, &mut None).unwrap();
             assert!(v == domain.coeffs);
-            domain.icoset_fft(&worker, &mut None);
-            domain.coset_fft(&worker, &mut None);
+            domain.icoset_fft(&worker, &mut None).unwrap();
+            domain.coset_fft(&worker, &mut None).unwrap();
             assert!(v == domain.coeffs);
-            domain.coset_fft(&worker, &mut None);
-            domain.icoset_fft(&worker, &mut None);
+            domain.coset_fft(&worker, &mut None).unwrap();
+            domain.icoset_fft(&worker, &mut None).unwrap();
             assert!(v == domain.coeffs);
         }
     }
@@ -524,14 +524,14 @@ fn fft_composition() {
     test_comp::<Bls12, _>(rng);
 }
 
-#[cfg(feature = "pairing")]
+#[cfg(any(feature = "pairing", feature = "blst"))]
 #[test]
 fn parallel_fft_consistency() {
-    use blstrs::Bls12;
+    use crate::bls::{Bls12, Engine};
     use rand_core::RngCore;
     use std::cmp::min;
 
-    fn test_consistency<E: ScalarEngine, R: RngCore>(rng: &mut R) {
+    fn test_consistency<E: ScalarEngine + Engine, R: RngCore>(rng: &mut R) {
         let worker = Worker::new();
 
         for _ in 0..5 {
@@ -588,7 +588,7 @@ mod tests {
         let _ = env_logger::try_init();
         gpu::dump_device_list();
 
-        use blstrs::{Bls12, Scalar as Fr};
+        use crate::bls::{Bls12, Scalar as Fr};
         use std::time::Instant;
         let rng = &mut rand::thread_rng();
 

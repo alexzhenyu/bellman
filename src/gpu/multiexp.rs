@@ -2,9 +2,9 @@ use super::error::{GPUError, GPUResult};
 use super::locks;
 use super::sources;
 use super::utils;
+use crate::bls::Engine;
 use crate::multicore::Worker;
 use crate::multiexp::{multiexp as cpu_multiexp, FullDensity};
-use blstrs::Engine;
 use crossbeam::thread;
 use ff::{PrimeField, ScalarEngine};
 use futures::Future;
@@ -274,7 +274,7 @@ where
     ) -> GPUResult<<G as CurveAffine>::Projective>
     where
         G: CurveAffine,
-        <G as groupy::CurveAffine>::Engine: blstrs::Engine,
+        <G as groupy::CurveAffine>::Engine: crate::bls::Engine,
     {
         let num_devices = self.kernels.len();
         // Bases are skipped by `self.1` elements, when converted from (Arc<Vec<G>>, usize) to Source

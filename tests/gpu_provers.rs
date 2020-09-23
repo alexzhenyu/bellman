@@ -1,6 +1,5 @@
-use bellperson::{Circuit, ConstraintSystem, SynthesisError};
+use bellperson::{bls::Engine, Circuit, ConstraintSystem, SynthesisError};
 use ff::{Field, PrimeField};
-use blstrs::Engine;
 
 #[derive(Clone)]
 pub struct DummyDemo {
@@ -41,11 +40,11 @@ impl<E: Engine> Circuit<E> for DummyDemo {
 #[cfg(feature = "gpu")]
 #[test]
 pub fn test_parallel_prover() {
+    use bellperson::bls::Bls12;
     use bellperson::groth16::{
         create_random_proof, create_random_proof_in_priority, generate_random_parameters,
         prepare_verifying_key, verify_proof,
     };
-    use blstrs::Bls12;
     use rand::thread_rng;
     use std::thread;
     use std::time::{Duration, Instant};

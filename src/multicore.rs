@@ -11,7 +11,6 @@ mod implementation {
     use futures::{Future, IntoFuture, Poll};
     use futures_cpupool::{CpuFuture, CpuPool};
     use lazy_static::lazy_static;
-    use num_cpus;
     use std::env;
 
     lazy_static! {

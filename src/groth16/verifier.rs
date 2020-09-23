@@ -1,7 +1,7 @@
+use crate::bls::{Engine, PairingCurveAffine};
 use ff::{Field, PrimeField};
 use futures::Future;
 use groupy::{CurveAffine, CurveProjective};
-use blstrs::{Engine, PairingCurveAffine};
 use rayon::prelude::*;
 use std::sync::Arc;
 

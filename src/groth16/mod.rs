@@ -2,8 +2,9 @@
 //!
 //! [Groth16]: https://eprint.iacr.org/2016/260
 
+use crate::bls::Engine;
+
 use groupy::{CurveAffine, EncodedPoint};
-use blstrs::Engine;
 
 use std::io::{self, Read, Write};
 
@@ -106,8 +107,8 @@ mod test_with_bls12_381 {
     use super::*;
     use crate::{Circuit, ConstraintSystem, SynthesisError};
 
+    use crate::bls::{Bls12, Scalar as Fr};
     use ff::Field;
-    use blstrs::{Bls12, Scalar as Fr};
     use rand::thread_rng;
 
     #[test]
