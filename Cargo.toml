@@ -26,7 +26,7 @@ memmap = "0.7.0"
 thiserror = "1.0.10"
 ahash = "0.4.5"
 
-blstrs = { path = "../blstrs",  optional = true }
+blstrs = { git = "https://github.com/dignifiedquire/blstrs", optional = true }
 paired = { version = "0.20.1", optional = true }
 
 futures-cpupool = { version = "0.1", optional = true }
