@@ -52,8 +52,9 @@ groth16 = []
 multicore = ["futures-cpupool", "crossbeam", "num_cpus"]
 
 blst = ["blstrs", "groth16", "multicore"]
+blst-serde = ["blstrs/serde"]
 pairing = ["paired", "groth16", "multicore"]
-
+pairing-serde = ["paired/serde"]
 
 [[test]]
 name = "mimc"
