@@ -107,7 +107,7 @@ mod test_with_bls12_381 {
     use super::*;
     use crate::{Circuit, ConstraintSystem, SynthesisError};
 
-    use crate::bls::{Bls12, Scalar as Fr};
+    use crate::bls::{Bls12, Fr};
     use ff::Field;
     use rand::thread_rng;
 

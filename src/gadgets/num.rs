@@ -439,7 +439,7 @@ impl<E: ScalarEngine> Num<E> {
 
 #[cfg(test)]
 mod test {
-    use crate::bls::{Bls12, Scalar as Fr};
+    use crate::bls::{Bls12, Fr};
     use crate::ConstraintSystem;
     use ff::{BitIterator, Field, PrimeField};
     use rand_core::SeedableRng;

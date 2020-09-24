@@ -569,7 +569,7 @@ where
 mod tests {
     use super::*;
 
-    use crate::bls::{Bls12, Scalar as Fr};
+    use crate::bls::{Bls12, Fr};
     use rand::Rng;
     use rand_core::SeedableRng;
     use rand_xorshift::XorShiftRng;
